@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles/style.css" rel="stylesheet" />
+    <link href="./styles/slider.css" rel="stylesheet" />
+    <title>Color picker</title>
+</head>
+<body>
+    <section>
+        <div>
+            background 
+            <span>
+            <label for="switchColor" class="switch">
+                <input id="switchColor" type="checkbox" />
+                <span class="slider round"></span>
+            </label>
+            </span>
+            secondary color 
+        </div>
+        
+        <button id="randomBtn" class="btn">Random</button>
+    </section>
+    <hr />
+
+    <section id="rangeColors">
+        <!-- rgba color sliders -->
+        <div>
+            <h2>RGBA values</h2>
+            <label for="red">Red: <span class="colorValue">255</span>
+                <input id="red" class="range rgb" type="range" 
+                    min="0" max="255" value="255" />
+            </label>
+            <label for="green">Green: <span class="colorValue">255</span>
+                <input id="green" class="range rgb" type="range" 
+                    min="0" max="255" value="255" />
+            </label>
+            <label for="blue">Blue: <span class="colorValue">255</span>
+                <input id="blue" class="range rgb" type="range" 
+                    min="0" max="255" value="255" />
+            </label>
+            <label for="alpha">Alpha: <span class="colorValue">1</span>
+                <input id="alpha" class="range rgb" type="range" 
+                    min="0" max="1" step="0.01" value="1" />
+            </label>
+            <button id="rgbComplementaryBtn" class="btn">Complementary</button>
+        </div>
+
+       <!-- space for the secondary color -->
+        <section id="secondaryColor">
+            <p>The quick brown fox jumps over the lazy dog</p>
+            <p id="rgbSec">rgba(255, 255, 255, 1)&semi;</p>
+            <p id="hslSec">hsla(0, 100%, 50%, 1)&semi;</p>
+        </section>
+
+        <!-- hsla color sliders -->
+        <div>
+            <h2>HSLA values</h2>
+            <label for="hue">Hue: <span class="colorValue">0</span>
+                <input id="hue" class="range hsl" type="range"
+                    min="0" max="360" value="0" />
+            </label>
+            <label for="saturation">Saturation: <span class="colorValue">100</span>
+                <input id="saturation" class="range hsl" type="range"
+                    min="0" max="100" value="100" />
+            </label>
+            <label for="lightness">lightness: <span class="colorValue">50</span>
+                <input id="lightness" class="range hsl" type="range"
+                    min="0" max="100" value="50" />
+            </label>
+            <label for="alphaHSL">Alpha: <span class="colorValue">1</span>
+                <input id="alphaHSL" class="range hsl" type="range" 
+                    min="0" max="1" step="0.01" value="1" />
+            </label> 
+            <button id="hslComplementaryBtn" class="btn">Complementary</button>  
+        </div>
+        <p id="rgbBack">rgba(255, 255, 255, 1)&semi;</p>
+        <p id="hslBack">hsla(0, 100%, 50%, 1)&semi;</p>
+    </section>
+    <hr />
+</body>
+<script src="./scripts/main.js"></script>
+</html>
