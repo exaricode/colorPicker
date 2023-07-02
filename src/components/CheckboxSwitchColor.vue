@@ -1,10 +1,11 @@
 <template>
     <span>
-        {{ isChecked }}
+        background
         <label for="switchColor" class="switch">
             <input id="switchColor" type="checkbox"  />
             <span class="slider round" @click.self="$emit('primarySecondary')"></span>
         </label>
+        secondary
     </span>
 </template>
 
