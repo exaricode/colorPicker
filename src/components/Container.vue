@@ -1,12 +1,10 @@
 <template>
     <section>
         <div>
-            background
             <CheckBoxSwitchColor
                 v-model="switchColor"
                 @primarySecondary="toggle"
              />
-            secondary color
         </div>
 
         <button id="randomBtn" class="btn" @click="randomColor">Random</button>
@@ -78,6 +76,10 @@ const secondaryColor = reactive({
     backgroundColor: "rgba(255, 255, 255, 1)",
 })
 
+onMounted(() => {
+    switchColor.value = false;
+})
+
 
 // Get rgba color sliders values
 function inputChangeRGBA(colorObj: ColorObj) {
@@ -92,7 +94,6 @@ function inputChanceHSLA(colorObj: ColorObj) {
 }
 
 function toggle() {
-    console.log(switchColor)
     switchColor.value = !switchColor.value;
 }
 
@@ -124,6 +125,7 @@ function setColor(color: string, type: string) {
 }
 
 function setComplementaryColor(color: string, type: string) {
+    console.log(switchColor.value);
     if (!switchColor.value) {
         secondaryColor.backgroundColor = color;
         if (type === 'rgb') {
@@ -160,13 +162,37 @@ function randomColor() {
     setColor(rgba, 'rgb');
     let hsla = rgbaToHsla(rgba);
 
+    setInputValues(rgbaObj, rgba);
+    setInputValues(hslaObj, hsla);
+    /* 
     rgbaObj.firstColorValue = r;
     rgbaObj.secondColorValue = g;
     rgbaObj.thirdColorValue = b;
     rgbaObj.fourthColorValue = a;
 
-    hslaPrimaryAsString.value = hsla;
+    const color = <string[]> hsla.substring(5).split(')')[0].split(',');
+
+    hslaObj.firstColorValue = parseInt(color[0]);
+    hslaObj.secondColorValue = parseInt(color[1].substring(0, color[1].length - 1));
+    hslaObj.thirdColorValue = parseInt(color[2].substring(0, color[2].length - 1));
+    hslaObj.fourthColorValue = parseInt(color[3]); */
 }
+
+function setInputValues(obj: ColorObj, colorType: String) {
+    let color;
+    if (colorType.startsWith("rgba")) {
+        color = <string[]> colorType.substring(5).split(')')[0].split(',');
+    } else {
+        color = <string[]> colorType.substring(5).split(')')[0].split(',');
+        color[1] = color[1].substring(0, color[1].length - 1);
+        color[2] = color[2].substring(0, color[2].length - 1);
+    }
+
+    obj.firstColorValue = parseInt(color[0]);
+    obj.secondColorValue = parseInt(color[1]);
+    obj.thirdColorValue = parseInt(color[2]);
+    obj.fourthColorValue = parseInt(color[3]);
+} 
 
 function rgbComplentaryColor() {
     let tempRed = 255 - rgbaObj.firstColorValue;
@@ -174,7 +200,7 @@ function rgbComplentaryColor() {
     let tempBlue = 255 - rgbaObj.thirdColorValue;
 
     let color = `rgba(${tempRed}, ${tempGreen}, ${tempBlue}, ${rgbaObj.fourthColorValue})`;
-
+    
     setComplementaryColor(color, 'rgb');
 }
 
