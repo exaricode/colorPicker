@@ -21,9 +21,9 @@
 
         <!-- space for the secondary color -->
         <section id="secondaryColor" :style="secondaryColor">
-            <p>The quick brown fox jumps over the lazy dog</p>
-            <p id="rgbSec">{{ rgbaSecondaryAsString }}</p>
-            <p id="hslSec">{{ hslaSecondaryAsString }}</p>
+            <p :style="bgColor">The quick brown fox jumps over the lazy dog</p>
+            <p id="rgbSec" :style="bgColor">{{ rgbaSecondaryAsString }}</p>
+            <p id="hslSec" :style="bgColor">{{ hslaSecondaryAsString }}</p>
         </section>
 
         <!-- hsla color sliders -->
@@ -33,13 +33,13 @@
             @complementary="hslComplentaryColor"
             @newColor="(color: ColorObj) => inputChanceHSLA(color)" />
        
-        <p id="rgbBack">{{ rgbaPrimaryAsString }}</p>
-        <p id="hslBack">{{ hslaPrimaryAsString }}</p>
+        <p id="rgbBack"><span :style="secondaryColor">{{ rgbaPrimaryAsString }}</span></p>
+        <p id="hslBack"><span :style="secondaryColor">{{ hslaPrimaryAsString }}</span></p>
     </section>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 import ContainerColorInput from './ContainerColorInput.vue';
 import CheckBoxSwitchColor from './CheckboxSwitchColor.vue';
@@ -73,7 +73,11 @@ const hslaPrimaryAsString = ref("hsla(0, 100%, 50%, 1);");
 const hslaSecondaryAsString = ref("hsla(0, 100%, 50%, 1);");
 
 const secondaryColor = reactive({
-    backgroundColor: "rgba(255, 255, 255, 1)",
+    backgroundColor: "rgba(255, 255, 255, 1)"
+});
+
+const bgColor = reactive({
+    backgroundColor: "rgba(255, 255, 255, 1)"
 })
 
 onMounted(() => {
@@ -112,6 +116,7 @@ function setColor(color: string, type: string) {
         }
     } else {
         document.body.style.backgroundColor = color;
+        bgColor.backgroundColor = color;
         if (type === 'rgb') {
             rgbaPrimaryAsString.value = `${color};`;
             let hsl = rgbaToHsla(color);
@@ -125,7 +130,6 @@ function setColor(color: string, type: string) {
 }
 
 function setComplementaryColor(color: string, type: string) {
-    console.log(switchColor.value);
     if (!switchColor.value) {
         secondaryColor.backgroundColor = color;
         if (type === 'rgb') {
@@ -139,6 +143,7 @@ function setComplementaryColor(color: string, type: string) {
         }
     } else {
         document.body.style.backgroundColor = color;
+        bgColor.backgroundColor = color;
         if (type === 'rgb') {
             rgbaPrimaryAsString.value = `${color};`;
             let hsl = rgbaToHsla(color);
@@ -164,18 +169,6 @@ function randomColor() {
 
     setInputValues(rgbaObj, rgba);
     setInputValues(hslaObj, hsla);
-    /* 
-    rgbaObj.firstColorValue = r;
-    rgbaObj.secondColorValue = g;
-    rgbaObj.thirdColorValue = b;
-    rgbaObj.fourthColorValue = a;
-
-    const color = <string[]> hsla.substring(5).split(')')[0].split(',');
-
-    hslaObj.firstColorValue = parseInt(color[0]);
-    hslaObj.secondColorValue = parseInt(color[1].substring(0, color[1].length - 1));
-    hslaObj.thirdColorValue = parseInt(color[2].substring(0, color[2].length - 1));
-    hslaObj.fourthColorValue = parseInt(color[3]); */
 }
 
 function setInputValues(obj: ColorObj, colorType: String) {
@@ -191,7 +184,7 @@ function setInputValues(obj: ColorObj, colorType: String) {
     obj.firstColorValue = parseInt(color[0]);
     obj.secondColorValue = parseInt(color[1]);
     obj.thirdColorValue = parseInt(color[2]);
-    obj.fourthColorValue = parseInt(color[3]);
+    obj.fourthColorValue = parseFloat(color[3]);
 } 
 
 function rgbComplentaryColor() {
