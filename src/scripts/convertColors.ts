@@ -5,7 +5,7 @@ function rgbaToHsla(rgba: string) {
     let r = parseInt(color[0]) / 255;
     let g = parseInt(color[1]) / 255;
     let b = parseInt(color[2]) / 255;
-    let a = parseInt(color[3]);
+    let a = parseFloat(color[3]);
 
     let cmax = Math.max(r, g, b);
     let cmin = Math.min(r, g, b);
@@ -51,7 +51,7 @@ function hslaToRgba(hsla: string) {
     let h = parseInt(color[0]);
     let s = parseInt(color[1].substring(0, color[1].length - 1)) / 100;
     let l = parseInt(color[2].substring(0, color[2].length - 1)) / 100;
-    let a = parseInt(color[3]);
+    let a = parseFloat(color[3]);
 
     let c = (1 - Math.abs(2 * l - 1)) * s;
     let x = c * (1 - Math.abs((h / 60) % 2 - 1));
