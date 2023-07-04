@@ -12,7 +12,7 @@ html, body, p, h1, h2, h3, h4, h5, h6 {
 }
 
 :root {
-    --main-light-grey: rgba(175, 175, 175, .75);
+    --main-light-grey: rgba(175, 175, 175, 1);
 }
 
 section {
@@ -38,8 +38,8 @@ body > section:first-child > div {
     padding: 1rem 2rem;
     margin: 1rem 0;
     background-color: var(--main-light-grey);
-    border-radius: 5% / 10%;
-    box-shadow: .2rem .2rem 1rem rgba(175, 175, 175, 1);
+    border-radius: 5% / 15%;
+    border: none;
 }
 
 label {
@@ -48,8 +48,8 @@ label {
     position: relative;
     margin: 1rem auto;
     background-color: var(--main-light-grey);
-    padding: .5rem;
-    border-radius: 5% / 40%;
+    padding: .5rem 1rem 1rem;
+    border-radius: 10% / 40%;
 }
 
 #rangeColors {
@@ -61,26 +61,39 @@ label {
 
 #secondaryColor {
     width: 40vw;
-    text-align: center;
-    border-radius: 5% / 15%;
+    border-radius: 15% / 15%;
     font-size: 2rem;
     background-color: rgba(255, 255, 255, 1);
     align-self: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #secondaryColor > p {
-    padding: 5%;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 5% / 20%;
 }
 
 #secondaryColor > p:first-child {
-    padding-block-start: 10%;
+    padding-block-start: 2.5%;
 }
 
 #rgbBack, #hslBack {
-    height: 4rem;
     font-size: 2rem;
     width: 100%;
     padding-block: 1rem;
 }
 
+#rgbBack > span, #hslBack > span {
+    display: inline-block;
+    width: 50%;
+    padding: .5rem 1rem;
+    border-radius: 5% / 50%;
+}
 
+.switch {
+    background-color: inherit;
+}
